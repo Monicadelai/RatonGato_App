@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RatonGato</title>
+    </head>
+
+        <h1>Join Game</h1>
+
+        {% if thereIsGame %}
+        You have joined the game with id: {{game.id}}<br />
+        players are {{game.catUser.username}} and {{game.mouseUser.username}} <br />
+        with IDs {{game.catUser.id}} and {{game.mouseUser.id}} respectively<br />
+        {% else %}
+        {{error}}<br />
+        {% endif %}
+    <a href="/server/index">Index</a>
+    </body>
+</html>

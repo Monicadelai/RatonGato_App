@@ -1,0 +1,40 @@
+{% extends 'server/base.html' %}
+
+{% load staticfiles %}
+
+{% block atitle %} <H1>Register User</H1> {% endblock %}
+
+    {% block content %}
+
+        {% if error %}
+             <div id="error_registro">
+                <span>This username already exits.</span>
+                <br />
+                <br />
+                <input class="btn" type="submit" value="Acept"  onClick="window.location='/server/register_user/';"/>
+            </div>
+        
+        {% else %}
+
+        <br />
+
+        <form id="user_form" method="post" action="/server/register_user/">
+
+            {% csrf_token %}
+             <input type="text" name="username" value="" size="50" placeholder="Username" required/>
+            <br />
+
+            <input type="password" name="password" value="" size="50" placeholder="Password" required/>
+
+            <br />
+            <br />
+            <!-- Provide a button to click to submit the form. -->
+            <input class="btn" type="submit" name="submit" value="Register" />
+        </form>
+
+        
+
+           
+       
+        {% endif %}
+    {% endblock content %}

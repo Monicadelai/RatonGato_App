@@ -1,0 +1,98 @@
+
+{% load staticfiles %}
+
+{% if final_partida %} 
+
+
+	{% if gana_gato %} <!-- Gana_gato: TRUE -->
+		{% if amIcat %} <!-- amIcat: TRUE -->
+
+			<script type="text/javascript">
+
+			    $(document).ready(function() {
+			        $("#mensaje").fadeIn(1500);
+			        $("#mensaje").css('background-color','#31B404');
+			    });
+			</script>
+			<p id="mensaje_error"> Has ganado, {{user.username}} </p>
+
+		{% else %}
+
+			<script type="text/javascript">
+
+			    $(document).ready(function() {
+			        $("#mensaje").fadeIn(1500);
+			        $("#mensaje").css('background-color','#FE2E2E');
+			    });
+			</script>
+			<p id="mensaje_error"> Has perdido {{user.username}} </p>
+
+		{% endif %}
+	{% else %} <!-- Gana_gato: FALSE -->
+		{% if amIcat %} <!-- amIcat: TRUE -->
+
+			<script type="text/javascript">
+			    $(document).ready(function() {
+			        $("#mensaje").fadeIn(1500);
+			        $("#mensaje").css('background-color','#FE2E2E');
+			    });
+			</script>
+			<p id="mensaje_error"> Has perdido, {{user.username}} </p>
+
+		{% else %}
+
+			<script type="text/javascript">
+			    $(document).ready(function() {
+			        $("#mensaje").fadeIn(1500);
+			        $("#mensaje").css('background-color','#31B404');
+			    });
+			</script>
+			<p id="mensaje_error"> Has ganado, {{user.username}} </p>
+
+		{% endif %}
+	{% endif %}
+
+
+{% else %}
+ 
+ continua
+	
+{% endif %}
+
+
+
+<!-- {% load staticfiles %}
+
+{% if final_partida %} 
+	<script>
+		 if("{{winner}}" == "gato"){
+		 	$(document).ready(function() {
+	        $("#fin_partida").fadeIn(1500);
+	        $("#fin_partida").css('background-color', 'blue');
+	    	});
+		 }/*else if ("{{winner}}" == "raton"){
+		 	$(document).ready(function() {
+	        $("#fin_partida").fadeIn(1500);
+	        $("#fin_partida").css('background-color', lime);
+	    	});
+		 }*/
+	</script>	
+	
+	<p id="ganador"> Has ganado, {{ winner }} </p>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    setTimeout(function() {
+	        $("#fin_partida").fadeOut(1500);
+	    },3000);
+	});
+
+	$(document).ready(function() {
+	    setTimeout(function() {
+	        $("#fin_partida").css('background-color','white');
+
+	    },4500);
+});
+</script>
+
+{% endif %} -->

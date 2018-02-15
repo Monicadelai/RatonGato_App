@@ -1,0 +1,160 @@
+{% extends "server/base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_js %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="{% static "js/jquery.min.js" %}"></script> -->
+
+
+
+<script type="text/javascript">
+
+var lastUsed = -1;
+var myRefresh;
+var fin_juego = false;
+
+    function refresh() {
+        
+        $.ajax({
+            url: '/server/status_board/',
+            success: function (data) {
+                $('#board').html(data);
+                myRefresh = setTimeout(refresh, 2000);
+            }
+        })
+    }
+
+
+    function winner_looser(){
+
+        $.ajax({
+            url: '/server/winner/',
+            success: function (data) {
+
+                if(data.search("continua") == -1){
+                    $('#mensaje').html(data);
+                    fin_juego = true;
+                    clearTimeout(myRefresh);
+                   
+                    
+                }
+            }
+        })
+
+        return fin_juego;
+    }
+
+    function getID(oObject){
+
+            clearTimeout(myRefresh);
+
+            var id = oObject.id;
+            id = id.substr(3);
+
+
+            if(fin_juego == true){
+                
+                return;
+            }
+                if("{{amIcat}}" == "False"){
+                    lastUsed=0;
+                }
+
+                if(lastUsed==-1){
+                    lastUsed=id;
+
+                }
+
+
+                else{
+
+                    $.ajax({
+                    type: "POST",
+                    url: "/server/move/", 
+                    data: {
+                        'origin':lastUsed,
+                        'target':id,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',//security token
+                    },
+                    success: function (data) {
+                        if(data.search("Error!") != -1)
+                            $('#mensaje').html(data);
+
+                    }                
+                })
+
+                lastUsed = -1;
+
+                myRefresh = setTimeout(refresh, 2000);
+                  
+            }
+
+
+    }
+</script>
+
+
+{% endblock extra_js %}
+
+
+
+{% block content %}
+<div id="seguir_esperando">
+
+    <script type="text/javascript">
+        refresh();
+    </script>
+    {% if esperando %}
+    <div id="turn">
+        <br/>
+        <span> {{esperando}} </span>
+        <br/>
+        <br/>
+    </div>
+    {% endif %}
+
+
+
+    <div id="mensaje">
+    </div>
+
+    <div id="board">
+
+
+{% if board %}
+
+<table id="chess_board" cellpadding="0" cellspacing="0">
+     <br/>
+     <span> {{myTurn}} </span>
+     <br/><br/>
+
+    {% for item in board %}
+    {% if forloop.counter0|divisibleby:8 %}
+        <tr>{% endif %}
+            <td id=id_{{ forloop.counter0}} onclick="getID(this);" >
+            {% if item ==  0 %}
+            {% elif item == 1 %}  &#9922;
+            {% else %}  &#9920;
+           </td>
+        {% if forloop.counter|divisibleby:8 or forloop.last %}
+            </tr>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+</table>
+{% else %}
+    
+    <div id="turn">
+        <br/>
+        <span> {{myTurn}} </span>
+        <br/>
+        <br/>
+    </div>
+{% endif %}
+
+
+    </div>
+    
+{% endblock content %}

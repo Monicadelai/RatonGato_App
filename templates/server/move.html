@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+{% if error %} 
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        /*$("mensaje").css('z-index', 5);*/
+        $("#mensaje").fadeIn(1500);
+        $("#mensaje").css('background-color','#e52b50');
+    });
+</script>
+
+<p id="mensaje_error"> Error! {{ error }} </p>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    setTimeout(function() {
+        $("#mensaje").fadeOut(1500);
+    },3000);
+});
+
+$(document).ready(function() {
+    setTimeout(function() {
+        $("#mensaje").css('background-color','white');
+        /*$("mensaje").css('z-index', '-1');*/
+
+    },4500);
+});
+</script>
+
+
+{% endif %}

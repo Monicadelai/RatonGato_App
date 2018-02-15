@@ -1,0 +1,18 @@
+
+{% extends 'server/base.html' %}
+
+{% load staticfiles %}
+
+{% block atitle %} <H1>Logout</H1> {% endblock %}
+
+    {% block content %}
+
+        <div id="logout">
+        	<br /><br />
+            <span>Dear {{username}} you have been logged out.</span>
+            <br />
+            <br />
+            <input class="btn" type="submit" value="Acept"  onClick="window.location='/server/index/';"/>
+        </div>
+
+    {% endblock content%}

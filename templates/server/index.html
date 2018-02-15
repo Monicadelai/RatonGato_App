@@ -1,0 +1,18 @@
+
+{% extends 'server/base.html' %}
+
+{% load staticfiles %} <!-- New line -->
+
+{% block content %}
+
+    <img src="{% static "imagenes/foto1.jpg" %}" /> 
+
+    <div id="botones_index">
+        <input class="btn" type="submit" value="Login" onClick="window.location='/server/login_user/';"/>
+        <input class="btn" type="submit" value="Register"  onClick="window.location='/server/register_user/';"/>
+        <input class="btn" type="submit" value="Show"  onClick="window.location='/server/show/';"/> <!-- codigo que muestre la partida -->
+        {% if user.is_authenticated %}
+        <input class="btn" type="submit" value="Game"  onClick="window.location='/server/join_game/';"/>
+        {% endif %}
+    </div>
+{% endblock %}

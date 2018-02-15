@@ -1,0 +1,46 @@
+
+{% extends 'server/base.html' %}
+
+{% load staticfiles %}
+
+{% block atitle %} <H1>Login user</H1> {% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div id="error_registro">
+            <span>{{ error }}</span>
+            <br />
+            <br />
+            <input class="btn" type="submit" value="Acept"  onClick="window.location='/server/login_user/';"/>
+        </div>
+    {% else %}
+
+        <br />
+
+        <form id="login_form" method="post" action="/server/login_user/">
+
+
+            {% csrf_token %}
+            <input type="text" name="username" value="" size="50" placeholder="Username" required/>
+            <br />
+
+            <input type="password" name="password" value="" size="50" placeholder="Password" required/>
+            <br />
+            <br />
+            
+            <div id="radios">
+                <input type="radio" id="cat" name="cat_or_mouse" value="cat" required> <label for="cat">Gato</label> 
+                <br />
+                <br />
+                <input type="radio" id="mouse" name="cat_or_mouse" value="mouse"> <label for="mouse">Raton</label> 
+            </div>
+            <br />
+
+            <div id="login">
+                <input class="btn" type="submit" name="submit" value="Login" />
+            </div>
+            
+        </form>
+    {% endif %}
+
+{% endblock content%}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RatonGato</title>
+    </head>
+
+    <body>
+        <h1>Board</h1>
+{% if board %}
+<table id="chess_board" cellpadding="0" cellspacing="0">
+
+    {% for item in board %}
+    {% if forloop.counter0|divisibleby:8 %}
+        <tr>{% endif %}
+            <td id=id_{{ forloop.counter0}} style='width: 20px'>
+            {% if item ==  0 %}   x
+            {% elif item == 1 %}  &#9922;
+            {% else %}  &#9920;
+           </td>
+        {% if forloop.counter|divisibleby:8 or forloop.last %}
+            </tr>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+</table>
+{% else %}
+empty board
+{% endif %}
+        <a href="/server/index">Index</a>
+
+
+    </body>
+</html>
